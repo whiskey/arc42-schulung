@@ -2,74 +2,141 @@
 
 ## Whitebox Gesamtsystem {#_whitebox_gesamtsystem}
 
-***\<Übersichtsdiagramm\>***
+![Bausteinsicht Ebene 1: der eShop zerfällt in Web-UI, Konfigurator, Bestellung und Integration; die Integration spricht mit Kundenverwaltung, Bestandsverwaltung und Bezahldienst](diagrams/05-bausteinsicht.svg)
 
-Begründung
+Quelle des Diagramms: [`diagrams/05-bausteinsicht.d2`](diagrams/05-bausteinsicht.d2)
+([D2](https://d2lang.com)). Nach einer Änderung neu rendern mit:
 
-:   *\<Erläuternder Text\>*
+```sh
+d2 --theme 0 --pad 20 eshop/diagrams/05-bausteinsicht.d2 eshop/diagrams/05-bausteinsicht.svg
+```
 
-Enthaltene Bausteine
+**Begründung**
 
-:   *\<Beschreibung der enthaltenen Bausteine (Blackboxen)\>*
+Der Zuschnitt folgt unmittelbar dem Qualitätsziel der Modularisierung: Bestellung,
+Konfiguration, GUI und die Integration mit externen Systemen sollen mit wenig
+Aufwand austauschbar sein. Genau diese vier Verantwortlichkeiten sind deshalb je
+ein eigener Baustein — die Qualitätsanforderung ist damit in der Struktur
+sichtbar und nicht nur in Kapitel 10 behauptet.
 
-Wichtige Schnittstellen
+Die Integration ist bewusst **ein** Baustein und nicht auf die Fachbausteine
+verteilt. So gibt es genau eine Stelle im System, die die Eigenheiten der
+Fremdsysteme kennt. Ein Wechsel des Bezahldienstes bleibt dadurch lokal, statt
+sich durch die Bestellabwicklung zu ziehen.
 
-:   *\<Beschreibung wichtiger Schnittstellen\>*
+**Enthaltene Bausteine**
 
-### \<Name Blackbox 1\> {#_name_blackbox_1}
+| Baustein | Verantwortung |
+|----------|---------------|
+| Web-UI | Darstellung und Benutzerführung im Browser des Kunden |
+| Konfigurator | Gültigkeit, Vollständigkeit und Preis einer Rechnerkonfiguration |
+| Bestellung | Ablauf vom Warenkorb bis zur bestätigten Bestellung, Zustand einer Bestellung |
+| Integration | Zugriff auf Kundenverwaltung, Bestandsverwaltung und Bezahldienst |
 
-*\<Zweck/Verantwortung\>*
+**Wichtige Schnittstellen**
 
-*\<Schnittstelle(n)\>*
+| Schnittstelle | Zweck |
+|---------------|-------|
+| Web-UI → Backend | Einzige Verbindung zwischen Oberfläche und Fachlogik, laut Randbedingung über REST/http |
+| Konfigurator → Integration | Verfügbarkeit einzelner Komponenten während der Konfiguration |
+| Bestellung → Integration | Kundenstammdaten, Reservierung von Komponenten, Zahlungsauftrag |
+| Integration → Nachbarsysteme | Je ein Adapter pro Nachbarsystem; siehe Kontextabgrenzung in [Kapitel 3](03_context_and_scope.md) |
 
-*\<(Optional) Qualitäts-/Leistungsmerkmale\>*
+### Web-UI {#_web_ui}
 
-*\<(Optional) Ablageort/Datei(en)\>*
+*Zweck/Verantwortung*
 
-*\<(Optional) Erfüllte Anforderungen\>*
+Stellt Konfiguration, Warenkorb und Bestellabschluss im Browser dar und führt den
+Kunden durch den Ablauf. Enthält keine Fachlogik — welche Konfiguration gültig
+ist, entscheidet der Konfigurator, nicht die Oberfläche.
 
-*\<(optional) Offene Punkte/Probleme/Risiken\>*
+*Schnittstellen*
 
-### \<Name Blackbox 2\> {#_name_blackbox_2}
+Nach außen der Browser des Kunden, nach innen REST/http zum Backend.
 
-*\<Blackbox-Template\>*
+*Qualitäts-/Leistungsmerkmale*
 
-### \<Name Blackbox n\> {#_name_blackbox_n}
+Trägt die Qualitätsziele „intuitive Benutzerführung" und „Lokalisierbarkeit".
+Für Letzteres dürfen Texte nicht im Code stehen, sondern müssen aus einer
+austauschbaren Quelle kommen.
 
-*\<Blackbox-Template\>*
+*Offene Punkte*
 
-### \<Name Schnittstelle 1\> {#_name_schnittstelle_1}
+Ob die Oberfläche auch für mobile Geräte ausgelegt sein muss, ist in Kapitel 1
+noch offen und beeinflusst diesen Baustein am stärksten.
 
-...​
+### Konfigurator {#_konfigurator}
 
-### \<Name Schnittstelle m\> {#_name_schnittstelle_m}
+*Zweck/Verantwortung*
+
+Prüft, ob eine vom Kunden zusammengestellte Konfiguration technisch möglich ist,
+ergänzt Pflichtbestandteile und berechnet den Preis.
+
+*Schnittstellen*
+
+Nimmt Konfigurationswünsche von der Web-UI entgegen, fragt Verfügbarkeiten über
+die Integration ab.
+
+*Offene Punkte*
+
+Woher die Kompatibilitätsregeln stammen und wer sie pflegt, ist bisher nicht
+festgelegt. Das ist die größte inhaltliche Lücke in diesem Baustein.
+
+### Bestellung {#_bestellung}
+
+*Zweck/Verantwortung*
+
+Führt den Bestellvorgang vom Warenkorb bis zur Bestätigung und hält den Zustand
+einer Bestellung. Verantwortet insbesondere das Zusammenspiel von Reservierung
+und Zahlung, einschließlich der Rücknahme einer Reservierung bei fehlgeschlagener
+Zahlung.
+
+*Schnittstellen*
+
+Web-UI für Auslösen und Statusabfrage, Integration für Kundendaten, Reservierung
+und Zahlung.
+
+*Offene Punkte*
+
+Storno und Rückabwicklung nach erfolgreicher Bestellung sind nicht beauftragt.
+Falls sie später dazukommen, betrifft das vor allem diesen Baustein.
+
+### Integration {#_integration}
+
+*Zweck/Verantwortung*
+
+Kapselt den Zugriff auf die drei Nachbarsysteme hinter fachlichen Schnittstellen.
+Je Nachbarsystem ein Adapter, der Protokoll, Datenformat und Fehlerverhalten des
+Fremdsystems auf die Begriffe des eShops übersetzt.
+
+*Schnittstellen*
+
+Kundenverwaltung, Bestandsverwaltung, Bezahldienst.
+
+*Qualitäts-/Leistungsmerkmale*
+
+Trägt das Qualitätsziel der Austauschbarkeit. Der Test dafür ist konkret: ein
+zweiter Bezahldienst muss sich ergänzen lassen, ohne Konfigurator oder Bestellung
+anzufassen.
+
+*Offene Punkte*
+
+Was geschieht, wenn ein Nachbarsystem nicht erreichbar ist? Für die
+Bestandsverwaltung und den Bezahldienst hat das unmittelbar fachliche Folgen und
+ist noch nicht entschieden.
 
 ## Ebene 2 {#_ebene_2}
+
+TODO — Übung: Zerlegen Sie mindestens einen Baustein der Ebene 1 weiter. Am
+ergiebigsten sind *Bestellung* (Zustände einer Bestellung) und *Integration*
+(je ein Adapter pro Nachbarsystem).
 
 ### Whitebox *\<Baustein 1\>* {#_whitebox_baustein_1}
 
 *\<Whitebox-Template\>*
 
-### Whitebox *\<Baustein 2\>* {#_whitebox_baustein_2}
-
-*\<Whitebox-Template\>*
-
-...​
-
-### Whitebox *\<Baustein m\>* {#_whitebox_baustein_m}
-
-*\<Whitebox-Template\>*
-
 ## Ebene 3 {#_ebene_3}
 
-### Whitebox \<\_Baustein x.1\_\> {#_whitebox_baustein_x_1}
-
-*\<Whitebox-Template\>*
-
-### Whitebox \<\_Baustein x.2\_\> {#_whitebox_baustein_x_2}
-
-*\<Whitebox-Template\>*
-
-### Whitebox \<\_Baustein y.1\_\> {#_whitebox_baustein_y_1}
-
-*\<Whitebox-Template\>*
+TODO — Übung: Nur dort ausfüllen, wo Ebene 2 nicht ausreicht. Für den eShop in
+diesem Umfang voraussichtlich nicht nötig; arc42 verlangt keine Vollständigkeit,
+sondern Angemessenheit.

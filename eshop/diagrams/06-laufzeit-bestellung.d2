@@ -1,0 +1,42 @@
+# Laufzeitszenario 2: Bestellung aufgeben und bezahlen  --  arc42 Kapitel 6
+#
+# Rendern:
+#   d2 --theme 0 --pad 20 eshop/diagrams/06-laufzeit-bestellung.d2 eshop/diagrams/06-laufzeit-bestellung.svg
+#
+# Der Punkt des Szenarios ist die Klammer um Reservierung und Zahlung: die
+# Reservierung geht der Zahlung voraus und muss zurückgenommen werden, wenn die
+# Zahlung scheitert.
+
+shape: sequence_diagram
+
+kunde: Kunde
+ui: Web-UI
+bestellung: Bestellung
+integration: Integration
+kundenverwaltung: Kundenverwaltung
+bestand: Bestandsverwaltung
+bezahldienst: Bezahldienst
+
+kunde -> ui: schließt Bestellung ab
+ui -> bestellung: Bestellung auslösen
+bestellung -> integration: Kundenstammdaten holen
+integration -> kundenverwaltung: Stammdaten lesen
+kundenverwaltung -> integration: Stammdaten
+bestellung -> integration: Komponenten reservieren
+integration -> bestand: reservieren
+bestand -> integration: Reservierung bestätigt
+bestellung -> integration: Zahlung autorisieren
+integration -> bezahldienst: Zahlungsauftrag
+bezahldienst -> integration: Antwort
+
+"Zahlung autorisiert": {
+  bestellung -> ui: Bestellung bestätigt
+  ui -> kunde: Bestellbestätigung
+}
+
+"Zahlung abgelehnt": {
+  bestellung -> integration: Reservierung aufheben
+  integration -> bestand: Reservierung freigeben
+  bestellung -> ui: Zahlung fehlgeschlagen
+  ui -> kunde: Hinweis, andere Zahlungsart wählen
+}

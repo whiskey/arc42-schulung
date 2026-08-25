@@ -1,0 +1,21 @@
+# Laufzeitszenario 1: Rechner konfigurieren  --  arc42 Kapitel 6
+#
+# Rendern:
+#   d2 --theme 0 --pad 20 eshop/diagrams/06-laufzeit-konfiguration.d2 eshop/diagrams/06-laufzeit-konfiguration.svg
+
+shape: sequence_diagram
+
+kunde: Kunde
+ui: Web-UI
+konfigurator: Konfigurator
+integration: Integration
+bestand: Bestandsverwaltung
+
+kunde -> ui: wählt Komponenten aus
+ui -> konfigurator: Konfiguration prüfen
+konfigurator -> integration: Verfügbarkeit der Komponenten
+integration -> bestand: Bestand abfragen
+bestand -> integration: verfügbare Mengen
+integration -> konfigurator: Verfügbarkeit
+konfigurator -> ui: gültig oder nicht, Preis, Hinweise
+ui -> kunde: aktualisierte Konfiguration

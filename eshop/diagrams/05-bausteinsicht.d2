@@ -1,0 +1,122 @@
+# Bausteinsicht Ebene 1 (Whitebox eShop)  --  arc42 Kapitel 5
+#
+# Rendern:
+#   d2 --theme 0 --pad 20 eshop/diagrams/05-bausteinsicht.d2 eshop/diagrams/05-bausteinsicht.svg
+#
+# Der Zuschnitt folgt der Qualitätsanforderung, dass Bestellung, Konfiguration,
+# GUI und die Integration mit externen Systemen mit wenig Aufwand austauschbar
+# sein sollen: jede dieser vier Verantwortlichkeiten ist ein eigener Baustein.
+# Farben und Strichart sind dieselben wie im Kontextdiagramm (Kapitel 3).
+
+direction: down
+
+kunde: Kunde {
+  shape: person
+  style.fill: "#eef2f7"
+  style.stroke: "#40506b"
+}
+
+eshop: eShop {
+  style: {
+    fill: "#f7f9fd"
+    stroke: "#1a3f8f"
+    stroke-width: 3
+    border-radius: 8
+    font-color: "#1a3f8f"
+    font-size: 22
+    bold: true
+  }
+
+  ui: Web-UI {
+    style.fill: "#1a3f8f"
+    style.stroke: "#122c66"
+    style.font-color: "#ffffff"
+    style.border-radius: 4
+  }
+
+  konfigurator: Konfigurator {
+    style.fill: "#1a3f8f"
+    style.stroke: "#122c66"
+    style.font-color: "#ffffff"
+    style.border-radius: 4
+  }
+
+  bestellung: Bestellung {
+    style.fill: "#1a3f8f"
+    style.stroke: "#122c66"
+    style.font-color: "#ffffff"
+    style.border-radius: 4
+  }
+
+  integration: Integration {
+    style.fill: "#3b63b5"
+    style.stroke: "#122c66"
+    style.font-color: "#ffffff"
+    style.border-radius: 4
+  }
+
+  ui -> konfigurator: prüfen, bepreisen
+  ui -> bestellung: bestellen, Status
+  konfigurator -> integration: Verfügbarkeit
+  bestellung -> integration: Kunde, Reservierung, Zahlung
+}
+
+inhouse: "Sell-PC-Solutions (in-house)" {
+  style: {
+    fill: "#eaf0fb"
+    stroke: "#1a3f8f"
+    stroke-width: 2
+    border-radius: 8
+    font-color: "#1a3f8f"
+    bold: true
+  }
+
+  kundenverwaltung: Kundenverwaltung {
+    style.fill: "#ffffff"
+    style.stroke: "#1a3f8f"
+    style.stroke-width: 2
+    style.border-radius: 4
+  }
+
+  bestandsverwaltung: Bestandsverwaltung {
+    style.fill: "#ffffff"
+    style.stroke: "#1a3f8f"
+    style.stroke-width: 2
+    style.border-radius: 4
+  }
+}
+
+extern: "Extern (zugekauft)" {
+  style: {
+    fill: "#faf6ee"
+    stroke: "#9a8558"
+    stroke-width: 2
+    stroke-dash: 4
+    border-radius: 8
+    font-color: "#6f5f3c"
+    bold: true
+  }
+
+  bezahldienst: Bezahldienst {
+    style.fill: "#ffffff"
+    style.stroke: "#9a8558"
+    style.stroke-width: 2
+    style.stroke-dash: 4
+    style.border-radius: 4
+  }
+}
+
+kunde -> eshop.ui: bedient {
+  style.font-color: "#2b3445"
+}
+eshop.integration -> inhouse.kundenverwaltung: Stammdaten {
+  style.font-color: "#2b3445"
+}
+eshop.integration -> inhouse.bestandsverwaltung: Bestand {
+  style.font-color: "#2b3445"
+}
+eshop.integration -> extern.bezahldienst: Zahlung {
+  style.font-color: "#6f5f3c"
+  style.stroke: "#9a8558"
+  style.stroke-dash: 4
+}

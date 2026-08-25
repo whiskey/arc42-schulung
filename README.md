@@ -18,8 +18,8 @@ Schulung erarbeitet.
 | 2 | `02_architecture_constraints.md` | Randbedingungen | ✅ |
 | 3 | `03_context_and_scope.md` | Kontextabgrenzung | teilweise |
 | 4 | `04_solution_strategy.md` | Lösungsstrategie | Gerüst |
-| 5 | `05_building_block_view.md` | Bausteinsicht | Gerüst |
-| 6 | `06_runtime_view.md` | Laufzeitsicht | Gerüst |
+| 5 | `05_building_block_view.md` | Bausteinsicht | teilweise |
+| 6 | `06_runtime_view.md` | Laufzeitsicht | teilweise |
 | 7 | `07_deployment_view.md` | Verteilungssicht | Gerüst |
 | 8 | `08_concepts.md` | Querschnittliche Konzepte | Gerüst |
 | 9 | `09_architecture_decisions.md` | Architekturentscheidungen | Gerüst |

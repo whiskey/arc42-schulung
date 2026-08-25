@@ -1,16 +1,54 @@
 # Laufzeitsicht {#section-runtime-view}
 
-## *\<Bezeichnung Laufzeitszenario 1\>* {#_bezeichnung_laufzeitszenario_1}
+Dokumentiert sind zwei Szenarien: das häufigste und das riskanteste. Das erste
+zeigt den Normalfall der Konfiguration, das zweite die Bestellung mit Zahlung —
+dort greifen zwei Nachbarsysteme ineinander, und dort entsteht der Zustand, den
+das System falsch machen kann.
 
--   \<hier Laufzeitdiagramm oder Ablaufbeschreibung einfügen\>
+Nicht jedes denkbare Szenario gehört in dieses Kapitel. arc42 verlangt die
+wenigen, an denen sich das Zusammenspiel der Bausteine wirklich erklärt.
 
--   \<hier Besonderheiten bei dem Zusammenspiel der Bausteine in diesem
-    Szenario erläutern\>
+## Rechner konfigurieren {#_rechner_konfigurieren}
 
-## *\<Bezeichnung Laufzeitszenario 2\>* {#_bezeichnung_laufzeitszenario_2}
+![Sequenzdiagramm: der Kunde wählt Komponenten, die Web-UI lässt den Konfigurator prüfen, dieser fragt über die Integration die Verfügbarkeit in der Bestandsverwaltung ab](diagrams/06-laufzeit-konfiguration.svg)
 
-...​
+Quelle: [`diagrams/06-laufzeit-konfiguration.d2`](diagrams/06-laufzeit-konfiguration.d2)
 
-## *\<Bezeichnung Laufzeitszenario n\>* {#_bezeichnung_laufzeitszenario_n}
+Bemerkenswert am Ablauf ist, wo die Entscheidung fällt: Ob eine Konfiguration
+gültig ist, entscheidet der Konfigurator, nicht die Oberfläche. Die Web-UI
+stellt nur dar. Damit bleibt die Regel auch dann erhalten, wenn die Oberfläche
+später ausgetauscht oder um einen zweiten Kanal ergänzt wird.
 
-...​
+Die Verfügbarkeitsabfrage läuft bei jeder Änderung des Kunden erneut. Das ist der
+Pfad, der die Anforderung von 10.000 gleichzeitigen Benutzern am stärksten
+belastet, und damit der erste Kandidat für Zwischenspeicherung. Ob und wie
+zwischengespeichert wird, ist noch nicht entschieden.
+
+## Bestellung aufgeben und bezahlen {#_bestellung_aufgeben_und_bezahlen}
+
+![Sequenzdiagramm: Bestellung auslösen, Kundenstammdaten holen, Komponenten reservieren, Zahlung autorisieren; bei Ablehnung wird die Reservierung wieder freigegeben](diagrams/06-laufzeit-bestellung.svg)
+
+Quelle: [`diagrams/06-laufzeit-bestellung.d2`](diagrams/06-laufzeit-bestellung.d2)
+
+Der Kern des Szenarios ist die Reihenfolge von Reservierung und Zahlung. Die
+Reservierung geht der Zahlung voraus, damit dem Kunden nichts verkauft wird, was
+nicht mehr da ist. Damit entsteht aber eine Verpflichtung: Scheitert die Zahlung,
+muss die Reservierung wieder freigegeben werden. Genau das zeigt der zweite Block
+im Diagramm.
+
+Zwei Systeme, zwei Zustände, keine gemeinsame Transaktion — Bestandsverwaltung
+und Bezahldienst wissen nichts voneinander. Die Klammer darum liegt allein beim
+Baustein *Bestellung*.
+
+**Offener Punkt: der dritte Ausgang.** Das Diagramm zeigt Zustimmung und
+Ablehnung. Der Bezahldienst kann aber auch mit einer Zeitüberschreitung
+antworten. Dann ist der Ausgang der Zahlung nicht negativ, sondern *unbekannt* —
+die Reservierung darf weder blind gehalten noch blind freigegeben werden. Dieser
+Fall ist bewusst noch nicht gezeichnet, weil er noch nicht entschieden ist; er
+gehört zu den Risiken in Kapitel 11.
+
+## Weitere Szenarien {#_weitere_szenarien}
+
+TODO — Übung: Ergänzen Sie ein Szenario Ihrer Wahl. Naheliegende Kandidaten sind
+der Neukunde, der beim Bestellabschluss erst in der Kundenverwaltung angelegt
+werden muss, und der Ausfall eines Nachbarsystems.
