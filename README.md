@@ -21,7 +21,7 @@ Schulung erarbeitet.
 | 5 | `05_building_block_view.md` | Bausteinsicht | teilweise |
 | 6 | `06_runtime_view.md` | Laufzeitsicht | teilweise |
 | 7 | `07_deployment_view.md` | Verteilungssicht | Gerüst |
-| 8 | `08_concepts.md` | Querschnittliche Konzepte | Gerüst |
+| 8 | `08_concepts.md` | Querschnittliche Konzepte | teilweise |
 | 9 | `09_architecture_decisions.md` | Architekturentscheidungen | Gerüst |
 | 10 | `10_quality_requirements.md` | Qualitätsanforderungen | Gerüst |
 | 11 | `11_technical_risks.md` | Risiken und technische Schulden | Gerüst |
