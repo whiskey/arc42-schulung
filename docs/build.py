@@ -66,12 +66,7 @@ def kapitel():
             pfad = ESHOP / src
             if not pfad.exists():
                 return m.group(0)
-            anim = datauri(pfad)
-            still = ESHOP / src.replace("-animiert.svg", ".svg")
-            if "-animiert" in src and still.exists():
-                return (f'<img class="diagramm animiert" src="{anim}" '
-                        f'data-still="{datauri(still)}" data-anim="{anim}" alt="{alt}">')
-            return f'<img class="diagramm" src="{anim}" alt="{alt}">'
+            return f'<img class="diagramm" src="{datauri(pfad)}" alt="{alt}">'
 
         frag = re.sub(r'<img src="(?P<src>[^"]+)" alt="(?P<alt>[^"]*)"\s*/?>', bild, frag)
         frag = re.sub(r"<figcaption[^>]*>.*?</figcaption>", "", frag, flags=re.S)

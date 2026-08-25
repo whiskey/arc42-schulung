@@ -13,18 +13,11 @@ sind Aktivierungen — sie zeigen, welcher Baustein gerade die Kontrolle hat. Da
 `alt`-Fragment im zweiten Szenario trennt die beiden möglichen Ausgänge; die
 Bedingung steht jeweils in eckigen Klammern.
 
-Beide Szenarien sind zusätzlich als **animierte SVG** eingebunden: der Ablauf baut
-sich Schritt für Schritt auf, statt fertig dazustehen. Für die Schulung ist das der
-Unterschied zwischen „hier ist der Ablauf" und dem gemeinsamen Durchgehen. Wer die
-Kapitel druckt oder in ein PDF überführt, nimmt die daneben verlinkten Standbilder.
-
 ## Rechner konfigurieren {#_rechner_konfigurieren}
 
-![Animiertes Sequenzdiagramm in vier Schritten: der Kunde wählt Komponenten, die Web-UI lässt den Konfigurator prüfen, dieser fragt über die Integration die Verfügbarkeit in der Bestandsverwaltung ab und das Ergebnis läuft zurück](diagrams/06-laufzeit-konfiguration-animiert.svg)
+![Sequenzdiagramm: der Kunde wählt Komponenten, die Web-UI lässt den Konfigurator prüfen, dieser fragt über die Integration die Verfügbarkeit in der Bestandsverwaltung ab und das Ergebnis läuft zurück](diagrams/06-laufzeit-konfiguration.svg)
 
-Das Diagramm baut sich in vier Schritten auf. Standbild für Druck und PDF:
-[`06-laufzeit-konfiguration.svg`](diagrams/06-laufzeit-konfiguration.svg) ·
-Quelle: [`06-laufzeit-konfiguration.d2`](diagrams/06-laufzeit-konfiguration.d2)
+Quelle: [`diagrams/06-laufzeit-konfiguration.d2`](diagrams/06-laufzeit-konfiguration.d2)
 
 Bemerkenswert am Ablauf ist, wo die Entscheidung fällt: Ob eine Konfiguration
 gültig ist, entscheidet der Konfigurator, nicht die Oberfläche. Die Web-UI
@@ -38,12 +31,9 @@ zwischengespeichert wird, ist noch nicht entschieden.
 
 ## Bestellung aufgeben und bezahlen {#_bestellung_aufgeben_und_bezahlen}
 
-![Animiertes Sequenzdiagramm in fünf Schritten: Bestellung auslösen, Kundenstammdaten holen, Komponenten reservieren, Zahlung autorisieren; im alt-Fragment entweder Bestätigung oder Freigabe der Reservierung](diagrams/06-laufzeit-bestellung-animiert.svg)
+![Sequenzdiagramm: Bestellung auslösen, Kundenstammdaten holen, Komponenten reservieren, Zahlung autorisieren; im alt-Fragment entweder Bestätigung oder Freigabe der Reservierung](diagrams/06-laufzeit-bestellung.svg)
 
-Das Diagramm baut sich in fünf Schritten auf; der letzte zeigt beide Zweige des
-`alt`-Fragments. Standbild für Druck und PDF:
-[`06-laufzeit-bestellung.svg`](diagrams/06-laufzeit-bestellung.svg) ·
-Quelle: [`06-laufzeit-bestellung.d2`](diagrams/06-laufzeit-bestellung.d2)
+Quelle: [`diagrams/06-laufzeit-bestellung.d2`](diagrams/06-laufzeit-bestellung.d2)
 
 Der Kern des Szenarios ist die Reihenfolge von Reservierung und Zahlung. Die
 Reservierung geht der Zahlung voraus, damit dem Kunden nichts verkauft wird, was

@@ -5,6 +5,9 @@
 # Reservierung geht der Zahlung voraus und muss zurueckgenommen werden, wenn
 # die Zahlung scheitert.
 #
+# Achtung: Spans duerfen nicht wie eine Lebenslinie heissen. Ein Span
+# integration.kunde wuerde auf die Lebenslinie kunde aufgeloest.
+#
 # Rendern: siehe render.sh in diesem Verzeichnis.
 
 shape: sequence_diagram
@@ -17,43 +20,31 @@ kundenverwaltung: "«external system»\nKundenverwaltung"
 bestand: "«external system»\nBestandsverwaltung"
 bezahldienst: "«external system»\nBezahldienst"
 
-steps: {
-  "1 – Bestellung auslösen": {
-    kunde -> ui.aktiv: "schließt Bestellung ab"
-    ui.aktiv -> bestellung.vorgang: "Bestellung auslösen"
+kunde -> ui.aktiv: "schließt Bestellung ab"
+ui.aktiv -> bestellung.vorgang: "Bestellung auslösen"
+
+bestellung.vorgang -> integration.stammdaten: "Kundenstammdaten holen"
+integration.stammdaten -> kundenverwaltung.lesen: "Stammdaten lesen"
+kundenverwaltung.lesen -> integration.stammdaten: "Stammdaten"
+
+bestellung.vorgang -> integration.res: "Komponenten reservieren"
+integration.res -> bestand.res: "reservieren"
+bestand.res -> integration.res: "Reservierung bestätigt"
+
+bestellung.vorgang -> integration.zahlung: "Zahlung autorisieren"
+integration.zahlung -> bezahldienst.auth: "Zahlungsauftrag"
+bezahldienst.auth -> integration.zahlung: "Antwort"
+
+alt: {
+  "[Zahlung autorisiert]": {
+    bestellung.vorgang -> ui.aktiv: "Bestellung bestätigt"
+    ui.aktiv -> kunde: "Bestellbestätigung"
   }
 
-  "2 – Kundenstammdaten": {
-    bestellung.vorgang -> integration.stammdaten: "Kundenstammdaten holen"
-    integration.stammdaten -> kundenverwaltung.lesen: "Stammdaten lesen"
-    kundenverwaltung.lesen -> integration.stammdaten: "Stammdaten"
-  }
-
-  "3 – Reservierung": {
-    bestellung.vorgang -> integration.res: "Komponenten reservieren"
-    integration.res -> bestand.res: "reservieren"
-    bestand.res -> integration.res: "Reservierung bestätigt"
-  }
-
-  "4 – Zahlung": {
-    bestellung.vorgang -> integration.zahlung: "Zahlung autorisieren"
-    integration.zahlung -> bezahldienst.auth: "Zahlungsauftrag"
-    bezahldienst.auth -> integration.zahlung: "Antwort"
-  }
-
-  "5 – Ausgang": {
-    alt: {
-      "[Zahlung autorisiert]": {
-        bestellung.vorgang -> ui.aktiv: "Bestellung bestätigt"
-        ui.aktiv -> kunde: "Bestellbestätigung"
-      }
-
-      "[Zahlung abgelehnt]": {
-        bestellung.vorgang -> integration.storno: "Reservierung aufheben"
-        integration.storno -> bestand.frei: "Reservierung freigeben"
-        bestellung.vorgang -> ui.aktiv: "Zahlung fehlgeschlagen"
-        ui.aktiv -> kunde: "Hinweis, andere Zahlungsart wählen"
-      }
-    }
+  "[Zahlung abgelehnt]": {
+    bestellung.vorgang -> integration.storno: "Reservierung aufheben"
+    integration.storno -> bestand.frei: "Reservierung freigeben"
+    bestellung.vorgang -> ui.aktiv: "Zahlung fehlgeschlagen"
+    ui.aktiv -> kunde: "Hinweis, andere Zahlungsart wählen"
   }
 }

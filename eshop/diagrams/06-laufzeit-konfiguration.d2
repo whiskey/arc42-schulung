@@ -1,8 +1,6 @@
 # Laufzeitszenario 1: Rechner konfigurieren  --  arc42 Kapitel 6
 #
 # Notation: UML-Sequenzdiagramm mit Aktivierungsbalken.
-# Die Schritte (steps) bauen den Ablauf phasenweise auf; daraus entsteht
-# sowohl das Standbild als auch die animierte Fassung.
 #
 # Rendern: siehe render.sh in diesem Verzeichnis.
 
@@ -14,24 +12,11 @@ konfigurator: "«component»\nKonfigurator"
 integration: "«component»\nIntegration"
 bestand: "«external system»\nBestandsverwaltung"
 
-steps: {
-  "1 – Eingabe": {
-    kunde -> ui.aktiv: "wählt Komponenten aus"
-    ui.aktiv -> konfigurator.pruefen: "Konfiguration prüfen"
-  }
-
-  "2 – Verfügbarkeit erfragen": {
-    konfigurator.pruefen -> integration.abfrage: "Verfügbarkeit der Komponenten"
-    integration.abfrage -> bestand.lesen: "Bestand abfragen"
-  }
-
-  "3 – Antwort zurück": {
-    bestand.lesen -> integration.abfrage: "verfügbare Mengen"
-    integration.abfrage -> konfigurator.pruefen: "Verfügbarkeit"
-  }
-
-  "4 – Ergebnis anzeigen": {
-    konfigurator.pruefen -> ui.aktiv: "gültig oder nicht, Preis, Hinweise"
-    ui.aktiv -> kunde: "aktualisierte Konfiguration"
-  }
-}
+kunde -> ui.aktiv: "wählt Komponenten aus"
+ui.aktiv -> konfigurator.pruefen: "Konfiguration prüfen"
+konfigurator.pruefen -> integration.abfrage: "Verfügbarkeit der Komponenten"
+integration.abfrage -> bestand.lesen: "Bestand abfragen"
+bestand.lesen -> integration.abfrage: "verfügbare Mengen"
+integration.abfrage -> konfigurator.pruefen: "Verfügbarkeit"
+konfigurator.pruefen -> ui.aktiv: "gültig oder nicht, Preis, Hinweise"
+ui.aktiv -> kunde: "aktualisierte Konfiguration"

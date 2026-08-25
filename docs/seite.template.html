@@ -156,14 +156,6 @@ figure { margin:0 0 10px; }
   border-radius:10px; padding:18px; overflow-x:auto; margin:6px 0 12px;
 }
 img.diagramm { display:block; max-width:100%; height:auto; margin:0 auto; }
-.diagramm-steuerung { display:flex; align-items:center; gap:12px; margin:-4px 0 20px; }
-.knopf {
-  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12px; letter-spacing:.05em;
-  background:var(--surface); color:var(--ink); border:1px solid var(--rule-stark);
-  border-radius:99px; padding:5px 14px; cursor:pointer;
-}
-.knopf:hover { border-color:var(--ink); }
-.knopf:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
 
 /* Platzhalter aus dem arc42-Template */
 .platzhalter {
@@ -239,28 +231,5 @@ img.diagramm { display:block; max-width:100%; height:auto; margin:0 auto; }
   window.addEventListener('resize', markiere);
   markiere();
 
-  // Animierte Diagramme: bei reduzierter Bewegung mit dem Standbild starten
-  var ruhig = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.querySelectorAll('img.animiert').forEach(function(bild){
-    if (ruhig) bild.src = bild.dataset.still;
-    var knopf = document.createElement('button');
-    knopf.className = 'knopf';
-    knopf.type = 'button';
-    function beschrifte(){
-      var laeuft = bild.src === bild.dataset.anim;
-      knopf.textContent = laeuft ? 'Animation anhalten' : 'Ablauf abspielen';
-      knopf.setAttribute('aria-pressed', laeuft ? 'true' : 'false');
-    }
-    knopf.addEventListener('click', function(){
-      bild.src = (bild.src === bild.dataset.anim) ? bild.dataset.still : bild.dataset.anim;
-      beschrifte();
-    });
-    beschrifte();
-    var zeile = document.createElement('div');
-    zeile.className = 'diagramm-steuerung';
-    zeile.appendChild(knopf);
-    var rahmen = bild.closest('.diagramm-rahmen');
-    (rahmen || bild).parentNode.insertBefore(zeile, (rahmen || bild).nextSibling);
-  });
 })();
 </script>
