@@ -1,0 +1,266 @@
+<title>eShop Architekturdokumentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --paper:#f4f6fa; --surface:#ffffff; --diagramm-grund:#ffffff;
+  --ink:#1a3f8f; --ink-soft:#3b63b5; --sand:#8a7448;
+  --text:#161a23; --muted:#5a6376; --rule:#dbe1ed; --rule-stark:#c3ccdd;
+  --chip-fertig-bg:#e7eefb; --chip-fertig-fg:#1a3f8f;
+  --chip-teil-bg:#f6f0e2; --chip-teil-fg:#7a6538;
+  --chip-geruest-bg:transparent; --chip-geruest-fg:#5a6376;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:#0d1118; --surface:#141a24; --diagramm-grund:#f2f4f8;
+    --ink:#82a6ec; --ink-soft:#6d92dd; --sand:#c9ac71;
+    --text:#dae0eb; --muted:#8b95a8; --rule:#222a38; --rule-stark:#33405360;
+    --chip-fertig-bg:#18294a; --chip-fertig-fg:#9dbaf3;
+    --chip-teil-bg:#2c2519; --chip-teil-fg:#d7bd85;
+    --chip-geruest-bg:transparent; --chip-geruest-fg:#8b95a8;
+  }
+}
+:root[data-theme="dark"] {
+  --paper:#0d1118; --surface:#141a24; --diagramm-grund:#f2f4f8;
+  --ink:#82a6ec; --ink-soft:#6d92dd; --sand:#c9ac71;
+  --text:#dae0eb; --muted:#8b95a8; --rule:#222a38; --rule-stark:#33405360;
+  --chip-fertig-bg:#18294a; --chip-fertig-fg:#9dbaf3;
+  --chip-teil-bg:#2c2519; --chip-teil-fg:#d7bd85;
+  --chip-geruest-bg:transparent; --chip-geruest-fg:#8b95a8;
+}
+
+* { box-sizing:border-box; }
+body {
+  margin:0; background:var(--paper); color:var(--text);
+  font-family:"Source Sans 3","Helvetica Neue",Arial,sans-serif;
+  font-size:17px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+.rahmen { max-width:1280px; margin:0 auto; padding:0 clamp(16px,4vw,40px); }
+
+/* ---------- Kopf ---------- */
+.kopf { border-bottom:1px solid var(--rule); padding:clamp(32px,6vw,64px) 0 28px; }
+.kopf-marke {
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12px;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--ink); margin:0 0 14px;
+}
+.kopf h1 {
+  font-family:"Zilla Slab",Georgia,serif; font-weight:700;
+  font-size:clamp(30px,5vw,52px); line-height:1.08; letter-spacing:-.015em;
+  margin:0 0 16px; text-wrap:balance;
+}
+.kopf-lead { font-size:clamp(17px,2vw,20px); color:var(--muted); max-width:62ch; margin:0 0 22px; }
+.kopf-meta {
+  display:flex; flex-wrap:wrap; gap:8px 22px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12.5px; color:var(--muted);
+}
+.kopf-meta a { color:var(--ink); }
+
+/* ---------- Layout ---------- */
+.spalten { display:grid; grid-template-columns:236px minmax(0,1fr); gap:clamp(28px,5vw,64px); padding:40px 0 96px; align-items:start; }
+@media (max-width:900px){ .spalten { grid-template-columns:1fr; gap:24px; } }
+
+/* ---------- Inhaltsverzeichnis ---------- */
+.toc { position:sticky; top:24px; max-height:calc(100vh - 48px); overflow-y:auto; }
+@media (max-width:900px){ .toc { position:static; max-height:none; border-bottom:1px solid var(--rule); padding-bottom:20px; } }
+.toc-titel {
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0 0 12px;
+}
+.toc ol { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:1px; }
+.toc a {
+  display:grid; grid-template-columns:26px 1fr; gap:9px; align-items:baseline;
+  padding:6px 8px; border-radius:5px; text-decoration:none; color:var(--text);
+  font-size:14.5px; line-height:1.3; border-left:2px solid transparent;
+}
+.toc a:hover { background:var(--surface); }
+.toc a .nr {
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12px;
+  color:var(--muted); font-variant-numeric:tabular-nums;
+}
+.toc a.aktiv { border-left-color:var(--ink); background:var(--surface); }
+.toc a.aktiv .nr, .toc a.aktiv { color:var(--ink); font-weight:600; }
+.toc a:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+.toc-punkt { width:6px; height:6px; border-radius:50%; display:inline-block; margin-left:5px; vertical-align:middle; }
+.toc-punkt.fertig { background:var(--ink); }
+.toc-punkt.teilweise { background:var(--sand); }
+.toc-punkt.geruest { border:1px solid var(--rule-stark); }
+
+/* ---------- Kapitel ---------- */
+.kapitel { padding-top:8px; margin-bottom:72px; scroll-margin-top:20px; }
+.kapitel-kopf { display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:6px; }
+.kapitel-nr {
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:13px; font-weight:500;
+  color:var(--ink); letter-spacing:.08em; font-variant-numeric:tabular-nums;
+}
+.chip {
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px;
+  letter-spacing:.07em; padding:2px 8px; border-radius:99px; text-transform:lowercase;
+}
+.chip.fertig { background:var(--chip-fertig-bg); color:var(--chip-fertig-fg); }
+.chip.teilweise { background:var(--chip-teil-bg); color:var(--chip-teil-fg); }
+.chip.geruest { background:var(--chip-geruest-bg); color:var(--chip-geruest-fg); border:1px solid var(--rule-stark); }
+
+.kapitel > h2 {
+  font-family:"Zilla Slab",Georgia,serif; font-weight:600;
+  font-size:clamp(25px,3.4vw,36px); line-height:1.15; letter-spacing:-.01em;
+  margin:0 0 22px; padding-bottom:14px; border-bottom:2px solid var(--ink);
+  text-wrap:balance;
+}
+.inhalt h3 {
+  font-family:"Zilla Slab",Georgia,serif; font-weight:600; font-size:22px;
+  margin:38px 0 10px; text-wrap:balance;
+}
+.inhalt h4 {
+  font-family:"Zilla Slab",Georgia,serif; font-weight:600; font-size:18px;
+  margin:28px 0 8px; text-wrap:balance;
+}
+.inhalt h5 { font-size:16px; margin:22px 0 6px; }
+.inhalt p, .inhalt li { max-width:68ch; }
+.inhalt p { margin:0 0 15px; }
+.inhalt ul, .inhalt ol { margin:0 0 16px; padding-left:22px; display:flex; flex-direction:column; gap:7px; }
+.inhalt blockquote {
+  margin:0 0 14px; padding-left:14px; border-left:3px solid var(--rule-stark);
+  color:var(--muted); font-style:italic;
+}
+.inhalt a { color:var(--ink); text-decoration-thickness:1px; text-underline-offset:2px; }
+.inhalt a:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+.inhalt code {
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.87em;
+  background:var(--surface); border:1px solid var(--rule); border-radius:4px; padding:1px 5px;
+}
+.inhalt pre {
+  background:var(--surface); border:1px solid var(--rule); border-radius:8px;
+  padding:14px 16px; overflow-x:auto; margin:0 0 18px;
+}
+.inhalt pre code { background:none; border:0; padding:0; font-size:13.5px; }
+
+/* Tabellen */
+.tabellenrahmen { overflow-x:auto; margin:0 0 22px; }
+.inhalt table { border-collapse:collapse; width:100%; font-size:15.5px; }
+.inhalt th, .inhalt td { text-align:left; vertical-align:top; padding:9px 14px; border-bottom:1px solid var(--rule); }
+.inhalt th {
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
+  border-bottom:1px solid var(--rule-stark); font-weight:500; white-space:nowrap;
+}
+.inhalt tbody tr:last-child td { border-bottom:0; }
+.inhalt colgroup { display:none; }
+
+/* Diagramme */
+figure { margin:0 0 10px; }
+.diagramm-rahmen {
+  background:var(--diagramm-grund); border:1px solid var(--rule-stark);
+  border-radius:10px; padding:18px; overflow-x:auto; margin:6px 0 12px;
+}
+img.diagramm { display:block; max-width:100%; height:auto; margin:0 auto; }
+.diagramm-steuerung { display:flex; align-items:center; gap:12px; margin:-4px 0 20px; }
+.knopf {
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12px; letter-spacing:.05em;
+  background:var(--surface); color:var(--ink); border:1px solid var(--rule-stark);
+  border-radius:99px; padding:5px 14px; cursor:pointer;
+}
+.knopf:hover { border-color:var(--ink); }
+.knopf:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+
+/* Platzhalter aus dem arc42-Template */
+.platzhalter {
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.84em;
+  color:var(--muted); border:1px dashed var(--rule-stark); border-radius:4px;
+  padding:1px 7px; display:inline-block;
+}
+
+/* Übungs-Callout */
+.uebung {
+  border-left:3px solid var(--sand); background:var(--chip-teil-bg);
+  border-radius:0 8px 8px 0; padding:14px 18px; margin:0 0 20px; max-width:68ch;
+}
+.uebung-marke {
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--chip-teil-fg);
+  display:block; margin-bottom:5px;
+}
+.uebung p { margin:0; }
+
+/* Fuss */
+.fuss { border-top:1px solid var(--rule); padding:26px 0 60px; color:var(--muted); font-size:14px; }
+.fuss a { color:var(--ink); }
+
+@media (prefers-reduced-motion:reduce) { * { animation:none !important; transition:none !important; } }
+</style>
+<!-- KOPF-ENDE -->
+
+<header class="kopf">
+  <div class="rahmen">
+    <p class="kopf-marke">arc42 · Kapitel 1 bis 12</p>
+    <h1>eShop — Architektur&shy;dokumentation</h1>
+    <p class="kopf-lead">Konfigurations- und Bestellportal der Sell-PC-Solutions GmbH.
+      Die Dokumentation entsteht im Lauf der arc42-Schulung; was noch Gerüst ist, ist als
+      solches gekennzeichnet.</p>
+    <div class="kopf-meta">
+      <span>Stand {{STAND}}</span>
+      <span>{{FORTSCHRITT}}</span>
+      <span><a href="https://github.com/whiskey/arc42-schulung" target="_blank" rel="noopener">github.com/whiskey/arc42-schulung</a></span>
+    </div>
+  </div>
+</header>
+
+<div class="rahmen">
+  <div class="spalten">
+    <nav class="toc" aria-label="Kapitel">
+      <p class="toc-titel">Inhalt</p>
+      <ol>{{TOC}}</ol>
+    </nav>
+    <main>{{KAPITEL}}</main>
+  </div>
+</div>
+
+<footer class="fuss">
+  <div class="rahmen">
+    <p>Struktur nach dem <a href="https://arc42.org" target="_blank" rel="noopener">arc42-Template</a>
+    von Dr. Peter Hruschka und Dr. Gernot Starke, CC BY-SA 4.0.
+    Diese Dokumentation steht unter derselben Lizenz.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Aktiver Eintrag im Inhaltsverzeichnis
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var ziele = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  function markiere(){
+    var y = window.scrollY + 120, i = 0;
+    for (var k = 0; k < ziele.length; k++) { if (ziele[k] && ziele[k].offsetTop <= y) i = k; }
+    links.forEach(function(a, k){ a.classList.toggle('aktiv', k === i); });
+  }
+  window.addEventListener('scroll', markiere, {passive:true});
+  window.addEventListener('resize', markiere);
+  markiere();
+
+  // Animierte Diagramme: bei reduzierter Bewegung mit dem Standbild starten
+  var ruhig = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('img.animiert').forEach(function(bild){
+    if (ruhig) bild.src = bild.dataset.still;
+    var knopf = document.createElement('button');
+    knopf.className = 'knopf';
+    knopf.type = 'button';
+    function beschrifte(){
+      var laeuft = bild.src === bild.dataset.anim;
+      knopf.textContent = laeuft ? 'Animation anhalten' : 'Ablauf abspielen';
+      knopf.setAttribute('aria-pressed', laeuft ? 'true' : 'false');
+    }
+    knopf.addEventListener('click', function(){
+      bild.src = (bild.src === bild.dataset.anim) ? bild.dataset.still : bild.dataset.anim;
+      beschrifte();
+    });
+    beschrifte();
+    var zeile = document.createElement('div');
+    zeile.className = 'diagramm-steuerung';
+    zeile.appendChild(knopf);
+    var rahmen = bild.closest('.diagramm-rahmen');
+    (rahmen || bild).parentNode.insertBefore(zeile, (rahmen || bild).nextSibling);
+  });
+})();
+</script>

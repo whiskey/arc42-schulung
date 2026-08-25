@@ -13,6 +13,9 @@ Icon?
 
 # Renderings / Build-Artefakte
 *.html
+# erzeugte Seite und ihre Vorlage sind bewusst versioniert
+!docs/index.html
+!docs/seite.template.html
 *.pdf
 /build/
 /out/

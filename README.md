@@ -27,6 +27,24 @@ Schulung erarbeitet.
 | 11 | `11_technical_risks.md` | Risiken und technische Schulden | Gerüst |
 | 12 | `12_glossary.md` | Glossar | Gerüst |
 
+## Die Doku als eine Seite
+
+[`docs/index.html`](docs/index.html) fasst alle zwölf Kapitel zu einer eigenständigen
+HTML-Seite zusammen: Inhaltsverzeichnis, eingebettete Diagramme, und sichtbar
+gemacht, was noch Template und was schon Inhalt ist. Die Datei lässt sich direkt im
+Browser öffnen, ein Webserver ist nicht nötig.
+
+Nach Änderungen an den Kapiteln neu erzeugen:
+
+```sh
+python3 docs/build.py      # braucht pandoc
+./eshop/diagrams/render.sh # nur nötig, wenn ein Diagramm geändert wurde; braucht d2
+```
+
+Den Bearbeitungsstand je Kapitel pflegt `STATUS` in [`docs/build.py`](docs/build.py) —
+dieselben Angaben wie in der Tabelle oben. Das Datum in der Kopfzeile kommt aus dem
+letzten Commit und muss nicht gepflegt werden.
+
 ## Arbeitsweise
 
 * Dokumentation ist Teil des Repos — *docs as code*: Änderungen laufen über
