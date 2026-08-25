@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# Editoren / IDEs
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Renderings / Build-Artefakte
+*.html
+*.pdf
+/build/
+/out/
+
+# Temporäres
+*~
+*.bak
+*.tmp
