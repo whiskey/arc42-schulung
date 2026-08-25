@@ -1,98 +1,90 @@
 # Fachlicher Kontext des eShop  --  arc42 Kapitel 3
 #
-# Rendern:
-#   d2 --theme 0 --pad 20 eshop/diagrams/03-kontext.d2 eshop/diagrams/03-kontext.svg
+# Notation: UML-Komponentendiagramm.
+#   «system»           das betrachtete System
+#   «external system»  Nachbarsystem ausserhalb des Betrachtungsgegenstands
+#   «actor»            menschlicher Benutzer
+#   Pakete             Eigentumsverhaeltnisse (in-house vs. zugekauft)
+#   gestrichelte Pfeile  UML-Abhaengigkeit (der eShop benutzt den Nachbarn)
 #
-# Die Nachbarn sind bewusst als Blackbox gezeichnet: für die Kontextabgrenzung
-# zählt nur, DASS der eShop mit ihnen fachlich austauscht, nicht wie sie innen
-# aufgebaut sind.
-#
-# Die Rahmen trennen die Eigentumsverhältnisse: die beiden Bestandssysteme
-# gehören Sell-PC-Solutions selbst und werden weiterbenutzt, der Bezahldienst
-# ist zugekauft und damit nicht beeinflussbar.
+# Rendern: siehe render.sh in diesem Verzeichnis.
 
 direction: right
 
-kunde: Kunde {
+kunde: "«actor»\nKunde" {
   shape: person
   style.fill: "#eef2f7"
   style.stroke: "#40506b"
 }
 
-eshop: eShop {
+eshop: "«system»\neShop" {
   shape: rectangle
-  width: 170
-  height: 80
+  width: 200
+  height: 90
   style: {
     fill: "#1a3f8f"
     stroke: "#122c66"
     stroke-width: 2
     font-color: "#ffffff"
-    font-size: 20
+    font-size: 18
     bold: true
     border-radius: 6
   }
 }
 
 inhouse: "Sell-PC-Solutions (in-house)" {
+  shape: package
   style: {
     fill: "#eaf0fb"
     stroke: "#1a3f8f"
     stroke-width: 2
-    border-radius: 8
     font-color: "#1a3f8f"
     bold: true
   }
 
-  kundenverwaltung: Kundenverwaltung {
-    shape: rectangle
+  kundenverwaltung: "«external system»\nKundenverwaltung" {
     style.fill: "#ffffff"
     style.stroke: "#1a3f8f"
     style.stroke-width: 2
-    style.border-radius: 4
   }
 
-  bestandsverwaltung: Bestandsverwaltung {
-    shape: rectangle
+  bestandsverwaltung: "«external system»\nBestandsverwaltung" {
     style.fill: "#ffffff"
     style.stroke: "#1a3f8f"
     style.stroke-width: 2
-    style.border-radius: 4
   }
 }
 
 extern: "Extern (zugekauft)" {
+  shape: package
   style: {
     fill: "#faf6ee"
     stroke: "#9a8558"
     stroke-width: 2
-    stroke-dash: 4
-    border-radius: 8
     font-color: "#6f5f3c"
     bold: true
   }
 
-  bezahldienst: Bezahldienst {
-    shape: rectangle
+  bezahldienst: "«external system»\nBezahldienst" {
     style.fill: "#ffffff"
     style.stroke: "#9a8558"
     style.stroke-width: 2
-    style.stroke-dash: 4
-    style.border-radius: 4
   }
 }
 
-kunde -> eshop: konfiguriert und bestellt {
+kunde -> eshop: "konfiguriert und bestellt" {
   style.font-color: "#2b3445"
 }
-eshop -> inhouse.kundenverwaltung: Kundenstammdaten {
-  style.font-color: "#2b3445"
-}
-eshop -> inhouse.bestandsverwaltung: Verfügbarkeit, Reservierung {
-  style.font-color: "#2b3445"
-}
-eshop -> extern.bezahldienst: Zahlung autorisieren {
-  style.font-color: "#6f5f3c"
-  style.stroke: "#9a8558"
+eshop -> inhouse.kundenverwaltung: "«use» Kundenstammdaten" {
   style.stroke-dash: 4
+  style.font-color: "#2b3445"
+}
+eshop -> inhouse.bestandsverwaltung: "«use» Verfügbarkeit, Reservierung" {
+  style.stroke-dash: 4
+  style.font-color: "#2b3445"
+}
+eshop -> extern.bezahldienst: "«use» Zahlung autorisieren" {
+  style.stroke-dash: 4
+  style.stroke: "#9a8558"
+  style.font-color: "#6f5f3c"
 }

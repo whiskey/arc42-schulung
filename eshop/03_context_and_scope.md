@@ -18,12 +18,13 @@ und diese Trennung ist der eigentliche Punkt des Diagramms:
   Verhalten und seine Verfügbarkeit sind vorgegeben; der eShop muss sich daran
   anpassen und mit Ausfällen umgehen können.
 
-Quelle des Diagramms: [`diagrams/03-kontext.d2`](diagrams/03-kontext.d2)
-([D2](https://d2lang.com)). Nach einer Änderung neu rendern mit:
+**Notation:** UML-Komponentendiagramm. `«system»` markiert den
+Betrachtungsgegenstand, `«external system»` die Nachbarsysteme. Die Pakete fassen
+zusammen, wem ein System gehört. Gestrichelte Pfeile sind UML-Abhängigkeiten
+(`«use»`): der eShop benutzt den Nachbarn, nicht umgekehrt.
 
-```sh
-d2 --theme 0 --pad 20 eshop/diagrams/03-kontext.d2 eshop/diagrams/03-kontext.svg
-```
+Quelle: [`diagrams/03-kontext.d2`](diagrams/03-kontext.d2) ([D2](https://d2lang.com)).
+Alle Diagramme neu rendern mit [`diagrams/render.sh`](diagrams/render.sh).
 
 ### Fachliche Schnittstellen {#_fachliche_schnittstellen}
 

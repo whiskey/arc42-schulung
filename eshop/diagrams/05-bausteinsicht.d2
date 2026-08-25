@@ -1,122 +1,124 @@
 # Bausteinsicht Ebene 1 (Whitebox eShop)  --  arc42 Kapitel 5
 #
-# Rendern:
-#   d2 --theme 0 --pad 20 eshop/diagrams/05-bausteinsicht.d2 eshop/diagrams/05-bausteinsicht.svg
+# Notation: UML-Komponentendiagramm.
+#   «component»        Baustein des eShops
+#   «external system»  Nachbarsystem
+#   Pakete             Systemgrenze bzw. Eigentumsverhaeltnisse
+#   gestrichelte Pfeile  UML-Abhaengigkeit «use»
 #
-# Der Zuschnitt folgt der Qualitätsanforderung, dass Bestellung, Konfiguration,
-# GUI und die Integration mit externen Systemen mit wenig Aufwand austauschbar
-# sein sollen: jede dieser vier Verantwortlichkeiten ist ein eigener Baustein.
-# Farben und Strichart sind dieselben wie im Kontextdiagramm (Kapitel 3).
+# Der Zuschnitt folgt der Qualitaetsanforderung, dass Bestellung, Konfiguration,
+# GUI und die Integration mit externen Systemen austauschbar sein sollen.
+#
+# Rendern: siehe render.sh in diesem Verzeichnis.
 
 direction: down
 
-kunde: Kunde {
+kunde: "«actor»\nKunde" {
   shape: person
   style.fill: "#eef2f7"
   style.stroke: "#40506b"
 }
 
-eshop: eShop {
+eshop: "«system» eShop" {
+  shape: package
   style: {
     fill: "#f7f9fd"
     stroke: "#1a3f8f"
     stroke-width: 3
-    border-radius: 8
     font-color: "#1a3f8f"
-    font-size: 22
+    font-size: 20
     bold: true
   }
 
-  ui: Web-UI {
+  ui: "«component»\nWeb-UI" {
     style.fill: "#1a3f8f"
     style.stroke: "#122c66"
     style.font-color: "#ffffff"
-    style.border-radius: 4
   }
 
-  konfigurator: Konfigurator {
+  konfigurator: "«component»\nKonfigurator" {
     style.fill: "#1a3f8f"
     style.stroke: "#122c66"
     style.font-color: "#ffffff"
-    style.border-radius: 4
   }
 
-  bestellung: Bestellung {
+  bestellung: "«component»\nBestellung" {
     style.fill: "#1a3f8f"
     style.stroke: "#122c66"
     style.font-color: "#ffffff"
-    style.border-radius: 4
   }
 
-  integration: Integration {
+  integration: "«component»\nIntegration" {
     style.fill: "#3b63b5"
     style.stroke: "#122c66"
     style.font-color: "#ffffff"
-    style.border-radius: 4
   }
 
-  ui -> konfigurator: prüfen, bepreisen
-  ui -> bestellung: bestellen, Status
-  konfigurator -> integration: Verfügbarkeit
-  bestellung -> integration: Kunde, Reservierung, Zahlung
+  ui -> konfigurator: "«use» prüfen, bepreisen" {
+    style.stroke-dash: 4
+  }
+  ui -> bestellung: "«use» bestellen, Status" {
+    style.stroke-dash: 4
+  }
+  konfigurator -> integration: "«use» Verfügbarkeit" {
+    style.stroke-dash: 4
+  }
+  bestellung -> integration: "«use» Kunde, Reservierung, Zahlung" {
+    style.stroke-dash: 4
+  }
 }
 
-inhouse: "Sell-PC-Solutions (in-house)" {
+inhouse: "in-house" {
+  shape: package
   style: {
     fill: "#eaf0fb"
     stroke: "#1a3f8f"
     stroke-width: 2
-    border-radius: 8
     font-color: "#1a3f8f"
     bold: true
   }
 
-  kundenverwaltung: Kundenverwaltung {
+  kundenverwaltung: "«external system»\nKundenverwaltung" {
     style.fill: "#ffffff"
     style.stroke: "#1a3f8f"
     style.stroke-width: 2
-    style.border-radius: 4
   }
 
-  bestandsverwaltung: Bestandsverwaltung {
+  bestandsverwaltung: "«external system»\nBestandsverwaltung" {
     style.fill: "#ffffff"
     style.stroke: "#1a3f8f"
     style.stroke-width: 2
-    style.border-radius: 4
   }
 }
 
-extern: "Extern (zugekauft)" {
+extern: "zugekauft" {
+  shape: package
   style: {
     fill: "#faf6ee"
     stroke: "#9a8558"
     stroke-width: 2
-    stroke-dash: 4
-    border-radius: 8
     font-color: "#6f5f3c"
     bold: true
   }
 
-  bezahldienst: Bezahldienst {
+  bezahldienst: "«external system»\nBezahldienst" {
     style.fill: "#ffffff"
     style.stroke: "#9a8558"
     style.stroke-width: 2
-    style.stroke-dash: 4
-    style.border-radius: 4
   }
 }
 
-kunde -> eshop.ui: bedient {
-  style.font-color: "#2b3445"
-}
-eshop.integration -> inhouse.kundenverwaltung: Stammdaten {
-  style.font-color: "#2b3445"
-}
-eshop.integration -> inhouse.bestandsverwaltung: Bestand {
-  style.font-color: "#2b3445"
-}
-eshop.integration -> extern.bezahldienst: Zahlung {
-  style.font-color: "#6f5f3c"
-  style.stroke: "#9a8558"
+kunde -> eshop.ui
+eshop.integration -> inhouse.kundenverwaltung: "«use»" {
   style.stroke-dash: 4
+  style.font-color: "#2b3445"
+}
+eshop.integration -> inhouse.bestandsverwaltung: "«use»" {
+  style.stroke-dash: 4
+  style.font-color: "#2b3445"
+}
+eshop.integration -> extern.bezahldienst: "«use»" {
+  style.stroke-dash: 4
+  style.stroke: "#9a8558"
+  style.font-color: "#6f5f3c"
 }

@@ -4,12 +4,12 @@
 
 ![Bausteinsicht Ebene 1: der eShop zerfällt in Web-UI, Konfigurator, Bestellung und Integration; die Integration spricht mit Kundenverwaltung, Bestandsverwaltung und Bezahldienst](diagrams/05-bausteinsicht.svg)
 
-Quelle des Diagramms: [`diagrams/05-bausteinsicht.d2`](diagrams/05-bausteinsicht.d2)
-([D2](https://d2lang.com)). Nach einer Änderung neu rendern mit:
+**Notation:** UML-Komponentendiagramm, gleiche Konventionen wie die
+Kontextabgrenzung in [Kapitel 3](03_context_and_scope.md). Die vier `«component»`
+im Paket `«system» eShop` sind die Bausteine der Ebene 1.
 
-```sh
-d2 --theme 0 --pad 20 eshop/diagrams/05-bausteinsicht.d2 eshop/diagrams/05-bausteinsicht.svg
-```
+Quelle: [`diagrams/05-bausteinsicht.d2`](diagrams/05-bausteinsicht.d2) ([D2](https://d2lang.com)).
+Alle Diagramme neu rendern mit [`diagrams/render.sh`](diagrams/render.sh).
 
 **Begründung**
 
