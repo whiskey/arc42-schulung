@@ -29,10 +29,13 @@ Schulung erarbeitet.
 
 ## Die Doku als eine Seite
 
+**→ <https://whiskey.github.io/arc42-schulung/>**
+
 [`docs/index.html`](docs/index.html) fasst alle zwölf Kapitel zu einer eigenständigen
 HTML-Seite zusammen: Inhaltsverzeichnis, eingebettete Diagramme, und sichtbar
-gemacht, was noch Template und was schon Inhalt ist. Die Datei lässt sich direkt im
-Browser öffnen, ein Webserver ist nicht nötig.
+gemacht, was noch Template und was schon Inhalt ist. GitHub Pages veröffentlicht die
+Datei aus dem Ordner `docs/`; sie lässt sich genauso gut lokal im Browser öffnen, ein
+Webserver ist nicht nötig.
 
 Nach Änderungen an den Kapiteln neu erzeugen:
 
