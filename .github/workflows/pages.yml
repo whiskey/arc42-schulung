@@ -34,12 +34,19 @@ jobs:
       - name: Seite erzeugen
         run: python3 docs/build.py
 
+      # Kein Byte-Vergleich mit der eingecheckten Seite: verschiedene
+      # pandoc-Versionen erzeugen leicht unterschiedliches HTML (aeltere setzen
+      # class="odd"/"even" auf Tabellenzeilen), der Vergleich schluege also
+      # immer an. Stattdessen die Frage, um die es wirklich geht: wurde ein
+      # Kapitel nach dem letzten Seitenbau veraendert?
       - name: Prüfen, ob die eingecheckte Seite aktuell war
         run: |
-          if git diff --quiet docs/index.html; then
-            echo "docs/index.html war auf dem Stand der Kapitel."
+          seite=$(git log -1 --format=%ct -- docs/index.html)
+          kapitel=$(git log -1 --format=%ct -- eshop/)
+          if [ "$kapitel" -gt "$seite" ]; then
+            echo "::warning file=docs/index.html::Die eingecheckte Seite ist aelter als die Kapitel. Veroeffentlicht wird der frisch gebaute Stand — bitte vor dem naechsten Commit 'python3 docs/build.py' ausfuehren."
           else
-            echo "::warning file=docs/index.html::Die eingecheckte Seite war veraltet. Veröffentlicht wird der frisch gebaute Stand — bitte vor dem nächsten Commit 'python3 docs/build.py' ausführen."
+            echo "docs/index.html ist auf dem Stand der Kapitel."
           fi
 
       - uses: actions/configure-pages@v5
