@@ -1,0 +1,59 @@
+name: Seite bauen und veröffentlichen
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "eshop/**"
+      - "docs/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Nur ein Deployment gleichzeitig, laufende nicht abbrechen.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  bauen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: pandoc installieren
+        run: sudo apt-get update && sudo apt-get install -y pandoc
+
+      # Die Seite wird hier neu erzeugt, nicht die eingecheckte übernommen.
+      # Damit kann die veröffentlichte Fassung nicht hinter den Kapiteln
+      # zurückbleiben, wenn jemand build.py vor dem Commit vergessen hat.
+      - name: Seite erzeugen
+        run: python3 docs/build.py
+
+      - name: Prüfen, ob die eingecheckte Seite aktuell war
+        run: |
+          if git diff --quiet docs/index.html; then
+            echo "docs/index.html war auf dem Stand der Kapitel."
+          else
+            echo "::warning file=docs/index.html::Die eingecheckte Seite war veraltet. Veröffentlicht wird der frisch gebaute Stand — bitte vor dem nächsten Commit 'python3 docs/build.py' ausführen."
+          fi
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  veroeffentlichen:
+    needs: bauen
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
