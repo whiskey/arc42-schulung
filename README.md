@@ -41,5 +41,16 @@ zwölf Kapitel, die die typischen Fragen an eine Architektur strukturieren.
 
 * Website: <https://arc42.org>
 * Template-Downloads: <https://arc42.org/download>
-* arc42 steht unter [Creative Commons Attribution-ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/),
-  erstellt von Dr. Peter Hruschka und Dr. Gernot Starke.
+
+## Lizenz
+
+Die Inhalte dieses Repositories stehen unter
+[Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/)
+(CC BY-SA 4.0) — siehe [LICENSE](LICENSE).
+
+© 2026 Carsten Knoblich
+
+Das zugrunde liegende arc42-Template stammt von Dr. Peter Hruschka und
+Dr. Gernot Starke und steht ebenfalls unter CC BY-SA 4.0. Diese
+Dokumentation ist eine davon abgeleitete Bearbeitung und wird daher unter
+derselben Lizenz weitergegeben.
