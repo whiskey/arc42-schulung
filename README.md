@@ -8,22 +8,24 @@ entsteht im Lauf der Schulung Kapitel für Kapitel in [`eshop/`](eshop/).
 
 ## Aufbau
 
-Ein Markdown-File pro arc42-Kapitel, benannt nach dem offiziellen arc42-Template:
+Ein Markdown-File pro arc42-Kapitel, benannt nach dem offiziellen arc42-Template.
+„Gerüst" heißt: Überschriften und Platzhalter stehen, der Inhalt wird in der
+Schulung erarbeitet.
 
 | # | Datei | Kapitel | Status |
 |----|-------|---------|--------|
 | 1 | `01_introduction_and_goals.md` | Einführung und Ziele | ✅ |
 | 2 | `02_architecture_constraints.md` | Randbedingungen | ✅ |
-| 3 | `03_system_scope_and_context.md` | Kontextabgrenzung | offen |
-| 4 | `04_solution_strategy.md` | Lösungsstrategie | offen |
-| 5 | `05_building_block_view.md` | Bausteinsicht | offen |
-| 6 | `06_runtime_view.md` | Laufzeitsicht | offen |
-| 7 | `07_deployment_view.md` | Verteilungssicht | offen |
-| 8 | `08_concepts.md` | Querschnittliche Konzepte | offen |
-| 9 | `09_architecture_decisions.md` | Architekturentscheidungen | offen |
-| 10 | `10_quality_requirements.md` | Qualitätsanforderungen | offen |
-| 11 | `11_technical_risks.md` | Risiken und technische Schulden | offen |
-| 12 | `12_glossary.md` | Glossar | offen |
+| 3 | `03_context_and_scope.md` | Kontextabgrenzung | Gerüst |
+| 4 | `04_solution_strategy.md` | Lösungsstrategie | Gerüst |
+| 5 | `05_building_block_view.md` | Bausteinsicht | Gerüst |
+| 6 | `06_runtime_view.md` | Laufzeitsicht | Gerüst |
+| 7 | `07_deployment_view.md` | Verteilungssicht | Gerüst |
+| 8 | `08_concepts.md` | Querschnittliche Konzepte | Gerüst |
+| 9 | `09_architecture_decisions.md` | Architekturentscheidungen | Gerüst |
+| 10 | `10_quality_requirements.md` | Qualitätsanforderungen | Gerüst |
+| 11 | `11_technical_risks.md` | Risiken und technische Schulden | Gerüst |
+| 12 | `12_glossary.md` | Glossar | Gerüst |
 
 ## Arbeitsweise
 

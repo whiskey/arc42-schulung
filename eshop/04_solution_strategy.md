@@ -1,0 +1,1 @@
+# Lösungsstrategie {#section-solution-strategy}

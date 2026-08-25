@@ -1,0 +1,1 @@
+# Architekturentscheidungen {#section-design-decisions}
