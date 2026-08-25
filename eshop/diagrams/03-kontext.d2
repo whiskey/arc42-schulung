@@ -1,0 +1,65 @@
+# Fachlicher Kontext des eShop  --  arc42 Kapitel 3
+#
+# Rendern:
+#   d2 --theme 0 --pad 20 eshop/diagrams/03-kontext.d2 eshop/diagrams/03-kontext.svg
+#
+# Die Nachbarn sind bewusst als Blackbox gezeichnet: für die Kontextabgrenzung
+# zählt nur, DASS der eShop mit ihnen fachlich austauscht, nicht wie sie innen
+# aufgebaut sind.
+
+direction: right
+
+kunde: Kunde {
+  shape: person
+  style.fill: "#eef2f7"
+  style.stroke: "#40506b"
+}
+
+eshop: eShop {
+  shape: rectangle
+  width: 170
+  height: 80
+  style: {
+    fill: "#1a3f8f"
+    stroke: "#122c66"
+    stroke-width: 2
+    font-color: "#ffffff"
+    font-size: 20
+    bold: true
+    border-radius: 6
+  }
+}
+
+kundenverwaltung: Kundenverwaltung {
+  shape: rectangle
+  style.fill: "#f4f4f2"
+  style.stroke: "#8a8a80"
+  style.border-radius: 4
+}
+
+bestandsverwaltung: Bestandsverwaltung {
+  shape: rectangle
+  style.fill: "#f4f4f2"
+  style.stroke: "#8a8a80"
+  style.border-radius: 4
+}
+
+bezahldienst: Bezahldienst {
+  shape: rectangle
+  style.fill: "#f4f4f2"
+  style.stroke: "#8a8a80"
+  style.border-radius: 4
+}
+
+kunde -> eshop: konfiguriert und bestellt {
+  style.font-color: "#2b3445"
+}
+eshop -> kundenverwaltung: Kundenstammdaten {
+  style.font-color: "#2b3445"
+}
+eshop -> bestandsverwaltung: Verfügbarkeit, Reservierung {
+  style.font-color: "#2b3445"
+}
+eshop -> bezahldienst: Zahlung autorisieren {
+  style.font-color: "#2b3445"
+}

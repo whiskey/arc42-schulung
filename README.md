@@ -16,7 +16,7 @@ Schulung erarbeitet.
 |----|-------|---------|--------|
 | 1 | `01_introduction_and_goals.md` | Einführung und Ziele | ✅ |
 | 2 | `02_architecture_constraints.md` | Randbedingungen | ✅ |
-| 3 | `03_context_and_scope.md` | Kontextabgrenzung | Gerüst |
+| 3 | `03_context_and_scope.md` | Kontextabgrenzung | teilweise |
 | 4 | `04_solution_strategy.md` | Lösungsstrategie | Gerüst |
 | 5 | `05_building_block_view.md` | Bausteinsicht | Gerüst |
 | 6 | `06_runtime_view.md` | Laufzeitsicht | Gerüst |
