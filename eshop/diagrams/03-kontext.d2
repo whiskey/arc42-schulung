@@ -6,6 +6,10 @@
 # Die Nachbarn sind bewusst als Blackbox gezeichnet: für die Kontextabgrenzung
 # zählt nur, DASS der eShop mit ihnen fachlich austauscht, nicht wie sie innen
 # aufgebaut sind.
+#
+# Die Rahmen trennen die Eigentumsverhältnisse: die beiden Bestandssysteme
+# gehören Sell-PC-Solutions selbst und werden weiterbenutzt, der Bezahldienst
+# ist zugekauft und damit nicht beeinflussbar.
 
 direction: right
 
@@ -30,36 +34,65 @@ eshop: eShop {
   }
 }
 
-kundenverwaltung: Kundenverwaltung {
-  shape: rectangle
-  style.fill: "#f4f4f2"
-  style.stroke: "#8a8a80"
-  style.border-radius: 4
+inhouse: "Sell-PC-Solutions GmbH — bestehende In-house-Systeme" {
+  style: {
+    fill: "#eaf0fb"
+    stroke: "#1a3f8f"
+    stroke-width: 2
+    border-radius: 8
+    font-color: "#1a3f8f"
+    bold: true
+  }
+
+  kundenverwaltung: Kundenverwaltung {
+    shape: rectangle
+    style.fill: "#ffffff"
+    style.stroke: "#1a3f8f"
+    style.stroke-width: 2
+    style.border-radius: 4
+  }
+
+  bestandsverwaltung: Bestandsverwaltung {
+    shape: rectangle
+    style.fill: "#ffffff"
+    style.stroke: "#1a3f8f"
+    style.stroke-width: 2
+    style.border-radius: 4
+  }
 }
 
-bestandsverwaltung: Bestandsverwaltung {
-  shape: rectangle
-  style.fill: "#f4f4f2"
-  style.stroke: "#8a8a80"
-  style.border-radius: 4
-}
+extern: "Externer Dienstleister" {
+  style: {
+    fill: "#faf6ee"
+    stroke: "#9a8558"
+    stroke-width: 2
+    stroke-dash: 4
+    border-radius: 8
+    font-color: "#6f5f3c"
+    bold: true
+  }
 
-bezahldienst: Bezahldienst {
-  shape: rectangle
-  style.fill: "#f4f4f2"
-  style.stroke: "#8a8a80"
-  style.border-radius: 4
+  bezahldienst: Bezahldienst {
+    shape: rectangle
+    style.fill: "#ffffff"
+    style.stroke: "#9a8558"
+    style.stroke-width: 2
+    style.stroke-dash: 4
+    style.border-radius: 4
+  }
 }
 
 kunde -> eshop: konfiguriert und bestellt {
   style.font-color: "#2b3445"
 }
-eshop -> kundenverwaltung: Kundenstammdaten {
+eshop -> inhouse.kundenverwaltung: Kundenstammdaten {
   style.font-color: "#2b3445"
 }
-eshop -> bestandsverwaltung: Verfügbarkeit, Reservierung {
+eshop -> inhouse.bestandsverwaltung: Verfügbarkeit, Reservierung {
   style.font-color: "#2b3445"
 }
-eshop -> bezahldienst: Zahlung autorisieren {
-  style.font-color: "#2b3445"
+eshop -> extern.bezahldienst: Zahlung autorisieren {
+  style.font-color: "#6f5f3c"
+  style.stroke: "#9a8558"
+  style.stroke-dash: 4
 }
