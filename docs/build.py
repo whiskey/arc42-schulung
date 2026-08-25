@@ -25,7 +25,7 @@ GH = "https://github.com/whiskey/arc42-schulung/blob/main/eshop/"
 # Bearbeitungsstand je Kapitel. Beim Ausfuellen eines Kapitels hier mitpflegen.
 STATUS = {1: "fertig", 2: "fertig", 3: "teilweise", 4: "Gerüst",
           5: "teilweise", 6: "teilweise", 7: "Gerüst", 8: "teilweise",
-          9: "Gerüst", 10: "Gerüst", 11: "Gerüst", 12: "Gerüst"}
+          9: "teilweise", 10: "Gerüst", 11: "Gerüst", 12: "fertig"}
 
 KLASSE = {"fertig": "fertig", "teilweise": "teilweise", "Gerüst": "geruest"}
 

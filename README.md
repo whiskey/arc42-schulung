@@ -22,10 +22,10 @@ Schulung erarbeitet.
 | 6 | `06_runtime_view.md` | Laufzeitsicht | teilweise |
 | 7 | `07_deployment_view.md` | Verteilungssicht | Gerüst |
 | 8 | `08_concepts.md` | Querschnittliche Konzepte | teilweise |
-| 9 | `09_architecture_decisions.md` | Architekturentscheidungen | Gerüst |
+| 9 | `09_architecture_decisions.md` | Architekturentscheidungen | teilweise |
 | 10 | `10_quality_requirements.md` | Qualitätsanforderungen | Gerüst |
 | 11 | `11_technical_risks.md` | Risiken und technische Schulden | Gerüst |
-| 12 | `12_glossary.md` | Glossar | Gerüst |
+| 12 | `12_glossary.md` | Glossar | fertig |
 
 ## Die Doku als eine Seite
 

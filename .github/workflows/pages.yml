@@ -25,8 +25,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Feste Version statt des Distributionspakets: aeltere pandoc-Versionen
+      # erzeugen leicht abweichendes HTML (class="odd"/"even" auf Tabellen-
+      # zeilen). Mit dieser Bindung ist die veroeffentlichte Seite byteweise
+      # dieselbe wie ein lokaler Build mit derselben Version.
+      # Beim Anheben hier auch die lokale Version mitziehen.
       - name: pandoc installieren
-        run: sudo apt-get update && sudo apt-get install -y pandoc
+        env:
+          PANDOC_VERSION: "3.10.2"
+        run: |
+          curl -fsSL -o /tmp/pandoc.deb \
+            "https://github.com/jgm/pandoc/releases/download/${PANDOC_VERSION}/pandoc-${PANDOC_VERSION}-1-amd64.deb"
+          sudo dpkg -i /tmp/pandoc.deb
+          pandoc --version | head -1
 
       # Die Seite wird hier neu erzeugt, nicht die eingecheckte übernommen.
       # Damit kann die veröffentlichte Fassung nicht hinter den Kapiteln
@@ -47,6 +58,11 @@ jobs:
             echo "::warning file=docs/index.html::Die eingecheckte Seite ist aelter als die Kapitel. Veroeffentlicht wird der frisch gebaute Stand — bitte vor dem naechsten Commit 'python3 docs/build.py' ausfuehren."
           else
             echo "docs/index.html ist auf dem Stand der Kapitel."
+          fi
+          if git diff --quiet docs/index.html; then
+            echo "Der frische Build ist byteweise identisch mit der eingecheckten Seite."
+          else
+            echo "Hinweis: frischer Build weicht byteweise ab — pandoc-Version pruefen."
           fi
 
       - uses: actions/configure-pages@v5

@@ -198,7 +198,7 @@ img.diagramm { display:block; max-width:100%; height:auto; margin:0 auto; }
       solches gekennzeichnet.</p>
     <div class="kopf-meta">
       <span>Stand 25.08.2026</span>
-      <span>2 von 12 Kapiteln fertig, 4 begonnen</span>
+      <span>3 von 12 Kapiteln fertig, 5 begonnen</span>
       <span><a href="https://github.com/whiskey/arc42-schulung" target="_blank" rel="noopener">github.com/whiskey/arc42-schulung</a></span>
     </div>
   </div>
@@ -208,7 +208,7 @@ img.diagramm { display:block; max-width:100%; height:auto; margin:0 auto; }
   <div class="spalten">
     <nav class="toc" aria-label="Kapitel">
       <p class="toc-titel">Inhalt</p>
-      <ol><li><a href="#kapitel-01"><span class="nr">01</span><span>Einführung und Ziele<span class="toc-punkt fertig" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-02"><span class="nr">02</span><span>Randbedingungen<span class="toc-punkt fertig" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-03"><span class="nr">03</span><span>Kontextabgrenzung<span class="toc-punkt teilweise" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-04"><span class="nr">04</span><span>Lösungsstrategie<span class="toc-punkt geruest" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-05"><span class="nr">05</span><span>Bausteinsicht<span class="toc-punkt teilweise" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-06"><span class="nr">06</span><span>Laufzeitsicht<span class="toc-punkt teilweise" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-07"><span class="nr">07</span><span>Verteilungssicht<span class="toc-punkt geruest" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-08"><span class="nr">08</span><span>Querschnittliche Konzepte<span class="toc-punkt teilweise" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-09"><span class="nr">09</span><span>Architekturentscheidungen<span class="toc-punkt geruest" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-10"><span class="nr">10</span><span>Qualitätsanforderungen<span class="toc-punkt geruest" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-11"><span class="nr">11</span><span>Risiken und technische Schulden<span class="toc-punkt geruest" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-12"><span class="nr">12</span><span>Glossar<span class="toc-punkt geruest" aria-hidden="true"></span></span></a></li></ol>
+      <ol><li><a href="#kapitel-01"><span class="nr">01</span><span>Einführung und Ziele<span class="toc-punkt fertig" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-02"><span class="nr">02</span><span>Randbedingungen<span class="toc-punkt fertig" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-03"><span class="nr">03</span><span>Kontextabgrenzung<span class="toc-punkt teilweise" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-04"><span class="nr">04</span><span>Lösungsstrategie<span class="toc-punkt geruest" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-05"><span class="nr">05</span><span>Bausteinsicht<span class="toc-punkt teilweise" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-06"><span class="nr">06</span><span>Laufzeitsicht<span class="toc-punkt teilweise" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-07"><span class="nr">07</span><span>Verteilungssicht<span class="toc-punkt geruest" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-08"><span class="nr">08</span><span>Querschnittliche Konzepte<span class="toc-punkt teilweise" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-09"><span class="nr">09</span><span>Architekturentscheidungen<span class="toc-punkt teilweise" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-10"><span class="nr">10</span><span>Qualitätsanforderungen<span class="toc-punkt geruest" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-11"><span class="nr">11</span><span>Risiken und technische Schulden<span class="toc-punkt geruest" aria-hidden="true"></span></span></a></li><li><a href="#kapitel-12"><span class="nr">12</span><span>Glossar<span class="toc-punkt fertig" aria-hidden="true"></span></span></a></li></ol>
     </nav>
     <main><section class="kapitel" id="kapitel-01">
   <div class="kapitel-kopf">
@@ -693,10 +693,84 @@ img.diagramm { display:block; max-width:100%; height:auto; margin:0 auto; }
 </section><section class="kapitel" id="kapitel-09">
   <div class="kapitel-kopf">
     <span class="kapitel-nr">Kapitel 09</span>
-    <span class="chip geruest">Gerüst</span>
+    <span class="chip teilweise">teilweise</span>
   </div>
   <h2>Architekturentscheidungen</h2>
   <div class="inhalt">
+<p>Hier stehen die Entscheidungen, deren <strong>Begründung</strong> man später nicht mehr rekonstruieren kann. Nicht jede Festlegung gehört dazu: Was aus einer Randbedingung folgt, ist keine Entscheidung, sondern eine Vorgabe — die steht in <a href="#kapitel-02">Kapitel 2</a>.</p>
+<p>Der Prüfstein ist einfach: Gab es eine ernstzunehmende Alternative, und würde jemand in einem Jahr fragen „warum eigentlich so"? Dann hierher.</p>
+<h3 id="_uebersicht">Übersicht</h3>
+<div class="tabellenrahmen"><table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 37%" />
+<col style="width: 21%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr>
+<th>Nr.</th>
+<th>Entscheidung</th>
+<th>Status</th>
+<th>Betrifft</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#_adr_01_reservierung_vor_zahlung">ADR-01</a></td>
+<td>Reservierung vor Zahlung</td>
+<td>entschieden</td>
+<td>Bestellung, Integration</td>
+</tr>
+<tr>
+<td>ADR-02</td>
+<td>Integration als ein Baustein statt Adapter je Fachbaustein</td>
+<td>entschieden</td>
+<td><a href="#kapitel-05">Kapitel 5</a></td>
+</tr>
+<tr>
+<td>ADR-03</td>
+<td>Keine Zahlungsdaten im eShop, um PCI-DSS zu vermeiden</td>
+<td>entschieden</td>
+<td><a href="#kapitel-08">Kapitel 8</a></td>
+</tr>
+<tr>
+<td>ADR-04</td>
+<td>Verhalten bei Zeitüberschreitung des Bezahldienstes</td>
+<td><strong>offen</strong></td>
+<td><a href="#kapitel-06">Kapitel 6</a>, <a href="#kapitel-11">Kapitel 11</a></td>
+</tr>
+<tr>
+<td>ADR-05</td>
+<td>Zwischenspeicherung der Verfügbarkeitsabfrage</td>
+<td><strong>offen</strong></td>
+<td>Konfigurator, Integration</td>
+</tr>
+</tbody>
+</table></div>
+<p>Ausgearbeitet ist bisher nur ADR-01 — als Muster für die übrigen.</p>
+<h3 id="_adr_01_reservierung_vor_zahlung">ADR-01: Reservierung vor Zahlung</h3>
+<p><strong>Status:</strong> entschieden</p>
+<h4 id="kontext">Kontext</h4>
+<p>Beim Bestellabschluss müssen zwei Dinge gelingen: Die Komponenten müssen in der Bestandsverwaltung reserviert und der Betrag beim Bezahldienst autorisiert werden. Beide Systeme sind eigenständig, wissen nichts voneinander und bieten keine gemeinsame Transaktion. Eines von beidem muss zuerst geschehen.</p>
+<h4 id="entscheidung">Entscheidung</h4>
+<p>Zuerst wird reserviert, danach bezahlt. Schlägt die Zahlung fehl, gibt der Baustein <em>Bestellung</em> die Reservierung wieder frei.</p>
+<h4 id="begründung">Begründung</h4>
+<p>Die umgekehrte Reihenfolge — erst kassieren, dann reservieren — kann dazu führen, dass ein Kunde für etwas bezahlt hat, das nicht mehr lieferbar ist. Das ist fachlich der schlechtere Fehlerfall: Geld zurückzugeben ist teurer, langsamer und für den Kunden ärgerlicher als eine Bestellung, die vor der Zahlung abbricht.</p>
+<h4 id="konsequenzen">Konsequenzen</h4>
+<ul>
+<li>Der Baustein <em>Bestellung</em> trägt die Klammer um beide Schritte, einschließlich der Rücknahme. Diese Verantwortung ist nicht delegierbar und begründet, warum <em>Bestellung</em> einen eigenen Zustand je Vorgang führt.</li>
+<li>Reservierungen können verwaisen, wenn die Rücknahme selbst scheitert. Es braucht eine Verfallszeit auf Seiten der Bestandsverwaltung — deren Zusage steht noch aus.</li>
+<li>Bei sehr knappem Bestand kann eine Reservierung einen anderen Kunden blockieren, dessen Zahlung durchgegangen wäre. Das wird in Kauf genommen.</li>
+</ul>
+<h4 id="alternativen">Alternativen</h4>
+<ul>
+<li><strong>Erst Zahlung, dann Reservierung</strong> — verworfen, siehe Begründung.</li>
+<li><strong>Beides parallel</strong> — verworfen: verkürzt den Ablauf um wenige hundert Millisekunden und verdoppelt die Zahl der Fehlerkombinationen.</li>
+<li><strong>Verteilte Transaktion über beide Systeme</strong> — nicht möglich, der Bezahldienst bietet keine.</li>
+</ul>
+<h3 id="_weitere_entscheidungen">Weitere Entscheidungen</h3>
+<aside class="uebung"><span class="uebung-marke">Übung</span><p>Arbeiten Sie ADR-02 und ADR-03 nach demselben Muster aus, und entscheiden Sie ADR-04. Achten Sie darauf, welche Annahmen Sie dabei treffen — eine Entscheidung ohne benannte Annahme lässt sich später nicht überprüfen.</p></aside>
 </div>
 </section><section class="kapitel" id="kapitel-10">
   <div class="kapitel-kopf">
@@ -719,25 +793,110 @@ img.diagramm { display:block; max-width:100%; height:auto; margin:0 auto; }
 </section><section class="kapitel" id="kapitel-12">
   <div class="kapitel-kopf">
     <span class="kapitel-nr">Kapitel 12</span>
-    <span class="chip geruest">Gerüst</span>
+    <span class="chip fertig">fertig</span>
   </div>
   <h2>Glossar</h2>
   <div class="inhalt">
+<p>Zweck dieses Kapitels ist, dass alle Beteiligten dasselbe meinen. Aufgenommen wird ein Begriff dann, wenn er im Projekt anders benutzt wird als umgangssprachlich, oder wenn er doppelt belegt ist.</p>
+<h3 id="_fachbegriffe">Fachbegriffe</h3>
 <div class="tabellenrahmen"><table>
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 55%" />
+</colgroup>
 <thead>
 <tr>
 <th>Begriff</th>
-<th>Definition</th>
+<th>Bedeutung</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><span class="platzhalter">&lt;Begriff-1&gt;</span></td>
-<td><span class="platzhalter">&lt;Definition-1&gt;</span></td>
+<td>Autorisierung</td>
+<td>Zusage des Bezahldienstes, dass der Betrag gedeckt ist und eingezogen werden kann. Nicht zu verwechseln mit der Buchung, die später erfolgt.</td>
 </tr>
 <tr>
-<td><span class="platzhalter">&lt;Begriff-2&gt;</span></td>
-<td><span class="platzhalter">&lt;Definition-2&gt;</span></td>
+<td>Bestandsverwaltung</td>
+<td>Bestehendes In-house-System, das die verfügbaren Mengen aller Komponenten führt. Wird vom Offline-Geschäft mitbenutzt.</td>
+</tr>
+<tr>
+<td>Bestellung</td>
+<td><strong>Doppelt belegt.</strong> Fachlich der Vorgang, mit dem ein Kunde eine Konfiguration verbindlich bestellt. Zugleich der Name eines Bausteins in <a href="#kapitel-05">Kapitel 5</a>. Im Text kursiv gesetzt, wenn der Baustein gemeint ist.</td>
+</tr>
+<tr>
+<td>Bezahldienst</td>
+<td>Zugekaufter externer Dienstleister, der die Zahlung abwickelt und die Zahlungsdaten hält. Kreditkarte, PayPal und Vergleichbares.</td>
+</tr>
+<tr>
+<td>Komponente</td>
+<td><strong>Doppelt belegt.</strong> Fachlich ein Einzelteil eines Rechners, also Prozessor, Speicher, Netzteil. In UML-Diagrammen dagegen ein Baustein der Software. Im Zweifel steht im Text, welche Lesart gilt.</td>
+</tr>
+<tr>
+<td>Konfiguration</td>
+<td>Zusammenstellung von Komponenten zu einem lieferbaren Rechner. Eine Konfiguration ist entweder gültig oder nicht — Teilzustände gibt es nicht.</td>
+</tr>
+<tr>
+<td>Kundenverwaltung</td>
+<td>Bestehendes In-house-System mit den Kundenstammdaten. Wird vom Offline-Geschäft mitbenutzt.</td>
+</tr>
+<tr>
+<td>Reservierung</td>
+<td>Vormerkung von Komponenten in der Bestandsverwaltung für eine noch nicht abgeschlossene Bestellung. Siehe <a href="#kapitel-09">ADR-01</a>.</td>
+</tr>
+<tr>
+<td>Sell-PC-Solutions GmbH</td>
+<td>Der Auftraggeber. Computerhersteller, betreibt bisher nur das Offline-Geschäft.</td>
+</tr>
+<tr>
+<td>Vorgangskennung</td>
+<td>Kennung, die eine Anfrage durch alle Bausteine begleitet und in jedem Log-Eintrag steht. Siehe <a href="#kapitel-08">Kapitel 8</a>.</td>
+</tr>
+<tr>
+<td>eShop</td>
+<td>Das zu bauende System. Kleines „e", großes „S" — auch am Satzanfang.</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="_begriffe_der_dokumentation">Begriffe der Dokumentation</h3>
+<div class="tabellenrahmen"><table>
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 55%" />
+</colgroup>
+<thead>
+<tr>
+<th>Begriff</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ADR</td>
+<td><em>Architecture Decision Record.</em> Eine festgehaltene Architekturentscheidung mit Kontext, Begründung und verworfenen Alternativen. Siehe <a href="#kapitel-09">Kapitel 9</a>.</td>
+</tr>
+<tr>
+<td>Baustein</td>
+<td>Abgegrenzter Teil des Systems mit eigener Verantwortung. Der Begriff sagt nichts über die technische Umsetzung — ein Baustein ist nicht zwingend ein eigener Prozess oder ein eigenes Deployment.</td>
+</tr>
+<tr>
+<td>Blackbox</td>
+<td>Beschreibung eines Bausteins von außen: was er leistet und über welche Schnittstellen, nicht wie er innen aufgebaut ist.</td>
+</tr>
+<tr>
+<td>Nachbarsystem</td>
+<td>System außerhalb des eShops, mit dem er fachlich austauscht. Siehe <a href="#kapitel-03">Kapitel 3</a>.</td>
+</tr>
+<tr>
+<td>Qualitätsszenario</td>
+<td>Anforderung an eine Qualität, formuliert als konkreter Ablauf mit messbarer Reaktion — statt „das System soll schnell sein".</td>
+</tr>
+<tr>
+<td>Stakeholder</td>
+<td>Person oder Rolle mit berechtigtem Interesse an der Architektur. Siehe <a href="#kapitel-01">Kapitel 1</a>.</td>
+</tr>
+<tr>
+<td>Whitebox</td>
+<td>Beschreibung eines Bausteins von innen: aus welchen Bausteinen er besteht und wie diese zusammenwirken.</td>
 </tr>
 </tbody>
 </table></div>
